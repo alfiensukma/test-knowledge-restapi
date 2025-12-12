@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS wallets (
+    id SERIAL PRIMARY KEY,
+    user_id INT UNIQUE NOT NULL,
+    balance DECIMAL(15, 2) DEFAULT 0.00,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+INSERT INTO wallets (user_id, balance) VALUES (1, 1000000) ON CONFLICT DO NOTHING;
+INSERT INTO wallets (user_id, balance) VALUES (2, 0) ON CONFLICT DO NOTHING;
